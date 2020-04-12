@@ -1,0 +1,62 @@
+import re
+import random
+responses ={
+    "about (.*)": "121",
+    "Hi":["Hello, how could i help you"],
+    "Tell me the eligibility criteria for b tech":["class 12 pass in MPC background"],
+    "Tell me the courses in B Tech":["CSE,ECE,Mechanical,EEE and many"],
+    "Tell me the future after B Tech":["Higher Studies and godd job oppurtunities"],
+    "Tell me the top colleges for B tech":["There are many good colleges, in that LPU,Amity,Delhi university are at the top"],
+    "Tell me the top colleges for placements":["LPU,Delhi university are good at placements"],
+    "Tell me the college with good scholarship":["LPU is good at scholarship"],
+    "Tell me the procedure for applying for LPU":["you can go through LPU nest website"],
+    "Tell me the highest placement package in LPU":["So far 1 crore is the maximum"],
+    "Tell me whether hostel facility is available or not in LPU":["Yes,Hostel facility is available in LPU"],
+    "Tell me the fee sturctures for some top universities":["for LPU it is 55,000 per semester,for Amity it is 60,000 per semester,for JNTU it is 1,000,00 ruppes"],
+    "Tell me the universities with distance education":["Yes,In LPU distance education is available"],
+    "default": [" try 'admission procedure'",
+                "try 'about deepak mangal' "],
+                
+    "dehaii":[ "retry i can't understand ","i am here to solve your problems related to admission procedure ,show you the details of faculty,and basic qweries about placements and other ",
+               "i can tell you about admission procedure","i can tell you about faculties if you ask"]
+    }
+bot_template = "BOT : {0}"
+user_template = "USER : "#"USER : {0}"
+def sql_responce():
+    #responce by kshitij after searching in sql data base
+    return "about the faculty"
+f=0
+def respond(message):
+    # Check if the message is in the responses
+    global f
+    if message in responses:
+        f=0
+        if responses[message]=="121":
+            bot_message = sql_responce(meshisage)
+        else:
+        # Return the matching message
+            bot_message = random.choice(responses[message])
+    else:
+        # Return the "default" message
+        if f<=4:
+            bot_message = random.choice(responses["dehaii"])
+            f=f+1
+        else:
+            bot_message = random.choice(responses["default"])
+        
+    return bot_message
+
+def send_message(message):
+    # Get the bot's response to the message
+    response = respond(message)
+    # Print the bot template including the bot's response.
+    print(bot_template.format(response))
+
+
+message =""
+
+while message != "byy":
+    # Print user_template including the user_message
+    print(user_template,end="")
+    message=input()
+    send_message(message)
